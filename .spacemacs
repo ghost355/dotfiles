@@ -179,10 +179,6 @@ before layers configuration."
             (setq lang_source (shell-command-to-string "issw"))
             (shell-command "issw com.apple.keylayout.US")))
 
-(define-key global-map (kbd "<C-h>") 'evil-window-left)
-(define-key global-map (kbd "<C-j>") 'evil-window-down)
-(define-key global-map (kbd "<C-k>") 'evil-window-up)
-(define-key global-map (kbd "<C-l>") 'evil-window-right)
 ;; ===============================
 ;; -- Y
 (defun find-file-in-split ()
