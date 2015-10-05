@@ -163,22 +163,26 @@ before layers configuration."
 (add-hook 'after-save-hook 'delete-trailing-whitespace)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 ;;===== My config ================
-(defvar lang_source "com.apple.keylayout.US")                     
-(add-hook 'evil-insert-state-entry-hook                         
+(setq lang_source "com.apple.keylayout.US")
+(add-hook 'evil-insert-state-entry-hook
      (lambda ()
-            (shell-command (concat "issw " lang_source))))      
+            (shell-command (concat "issw " lang_source))))
 (add-hook 'evil-insert-state-exit-hook
      (lambda ()
             (setq lang_source (shell-command-to-string "issw"))
             (shell-command "issw com.apple.keylayout.US")))
-(add-hook 'evil-replace-state-entry-hook                         
+(add-hook 'evil-replace-state-entry-hook
      (lambda ()
-            (shell-command (concat "issw " lang_source))))      
+            (shell-command (concat "issw " lang_source))))
 (add-hook 'evil-replace-state-exit-hook
      (lambda ()
             (setq lang_source (shell-command-to-string "issw"))
             (shell-command "issw com.apple.keylayout.US")))
 
+(define-key global-map (kbd "<C-h>") 'evil-window-left)
+(define-key global-map (kbd "<C-j>") 'evil-window-down)
+(define-key global-map (kbd "<C-k>") 'evil-window-up)
+(define-key global-map (kbd "<C-l>") 'evil-window-right)
 ;; ===============================
 ;; -- Y
 (defun find-file-in-split ()
