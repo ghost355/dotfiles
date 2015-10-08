@@ -18,7 +18,7 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
-     ;; better-defaults
+      better-defaults
      emacs-lisp
      (git :variables
           git-enable-github-support t)
@@ -34,6 +34,7 @@
      osx
      (haskell :variables
               haskell-enable-hindent-style "chris-done"
+              haskell-enable-ghci-ng-support t
               haskell-enable-shm-support t)
      )
    ;; List of additional packages that will be installed without being
@@ -79,7 +80,7 @@ before layers configuration."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -158,10 +159,7 @@ before layers configuration."
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
   (add-to-list 'exec-path "~/.local/bin")
   )
-;; hooks
-(add-hook 'text-mode-hook 'visual-line-mode)
-(add-hook 'after-save-hook 'delete-trailing-whitespace)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(defun dotspacemacs/user-config ()
 ;;===== My config ================
 (setq lang_source "com.apple.keylayout.US")
 (add-hook 'evil-insert-state-entry-hook
@@ -178,8 +176,21 @@ before layers configuration."
      (lambda ()
             (setq lang_source (shell-command-to-string "issw"))
             (shell-command "issw com.apple.keylayout.US")))
+)
 
-;; ===============================
+(add-hook 'before-save-hook 'whitespace-cleanup)
+
+;; =============== My ORGMODE settings =============================
+
+;; path for my org files for agenda
+;; (org-agenda-files (quote '("~/org/*.org")))
+;; set new TODO keywords
+;; (setq org-todo-keywords
+;;       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+;; add custom TAGS
+;; (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
+;; =================================================================
+
 ;; -- Y
 (defun find-file-in-split ()
   "Split the windows and start projectile find file"
@@ -211,7 +222,7 @@ layers configuration."
  '(package-selected-packages
    (quote
     (toc-org org-repo-todo org-present org-pomodoro org-bullets htmlize evil-org alert log4e gntp macrostep elisp-slime-nav diff-hl auto-complete avy names ghc company anzu iedit smartparens highlight flx flycheck haskell-mode popup pos-tip guide-key popwin request gitignore-mode projectile helm helm-core parent-mode async markdown-mode s pkg-info epl evil-leader evil bind-key dash paradox magit company-quickhelp magit-popup git-commit with-editor spinner window-numbering volatile-highlights vi-tilde-fringe use-package smooth-scrolling smeargle shm shell-pop rfringe rainbow-delimiters powerline pcre2el page-break-lines open-junk-file neotree multi-term move-text mmm-mode markdown-toc linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-anything hindent highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-descbinds helm-c-yasnippet helm-ag haskell-snippets guide-key-tip google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md fringe-helper flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-terminal-cursor-changer evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-lisp-state evil-jumper evil-indent-textobject evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu company-statistics company-ghc company-cabal cmm-mode clean-aindent-mode buffer-move auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-mode ac-ispell)))
- '(ring-bell-function (quote ignore))
+ '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values
    (quote
     ((haskell-indent-spaces . 2)
@@ -223,5 +234,6 @@ layers configuration."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
