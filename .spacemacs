@@ -160,7 +160,7 @@ before layers configuration."
   (add-to-list 'exec-path "~/.local/bin")
   )
 (defun dotspacemacs/user-config ()
-;;===== My config ================
+;;============= My config =======================
 (setq lang_source "com.apple.keylayout.US")
 (add-hook 'evil-insert-state-entry-hook
      (lambda ()
